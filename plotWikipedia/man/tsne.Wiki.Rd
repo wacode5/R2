@@ -1,61 +1,37 @@
 \name{tsne.Wiki}
 \alias{tsne.Wiki}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+t-SNE function for the matrix of Wikipedia converted by word2vec
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+This function performs t-SNE against Word2Vec.
 }
 \usage{
 tsne.Wiki(x, ...)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-%%     ~~Describe \code{x} here~~
+   Word2Vec
 }
   \item{\dots}{
-%%     ~~Describe \code{\dots} here~~
+  Some parameters for Rtsne
 }
-}
-\details{
-%%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+Rtsne obeject
 }
 \references{
-%% ~put references to the literature/web site here ~
+Laurens van der Maaten and Geoffrey Hinton (2008). Visualizing Data using t-SNE. Journal of Machine Learning Research Vol. 1, 1-48
 }
 \author{
-%%  ~~who you are~~
+Koki Tsuyuzaki
 }
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{Word2Vec}},
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x, ...) 
-{
-    Rtsne(x, ...)
-  }
+data(Word2Vec)
+res.tsne <- tsne.Wiki(Word2Vec, dims=2)
+plot(res.tsne$Y, pch=16, main="t-SNE of Pokemon GO-related Wikipedia pages", col=rgb(0,0,0,0.5), xlab="Dim1", ylab="Dim2")
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

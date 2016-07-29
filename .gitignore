@@ -1,5 +1,7 @@
-# CCIPCA specific
-src/ccipca
+iris.csv
+iris.txt
+*RData
+
 #################
 ## Eclipse
 #################

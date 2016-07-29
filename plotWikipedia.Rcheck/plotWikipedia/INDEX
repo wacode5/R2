@@ -1,0 +1,8 @@
+HyperLink               A Adjacent Matrix of Wikipedia, which means the
+                        relation of hyper-link
+Word2Vec                A Matrix of Wikipedia converted by word2vec
+graph.Wiki              igraph function for the adjacent matrix of
+                        Wikipedia
+plotWikipedia-package   Do t-SNE and plot the Wikipedia Data
+tsne.Wiki               t-SNE function for the matrix of Wikipedia
+                        converted by word2vec

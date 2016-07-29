@@ -1,4 +1,4 @@
 tsne.Wiki <-
 function(x, ...){
-	Rtsne(x, ...)
+Rtsne(x, ...)
 }

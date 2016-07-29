@@ -13,9 +13,6 @@
 The DESCRIPTION file:
 \packageDESCRIPTION{plotWikipedia}
 \packageIndices{plotWikipedia}
-res.tsne <- tsne.Wiki(Word2Vec, dims=2)
-plot(res.tsne$Y, pch=16, main="t-SNE of Pokemon GO-related Wikipedia pages")
-
 }
 \author{
 \packageAuthor{plotWikipedia}
@@ -23,22 +20,16 @@ plot(res.tsne$Y, pch=16, main="t-SNE of Pokemon GO-related Wikipedia pages")
 Maintainer: \packageMaintainer{plotWikipedia}
 }
 \references{
-~~ Literature or other references for background information ~~
-
-Visualizing Data using t-SNE
-Laurens van der Maaten
-Geoffrey Hinton
-Journal of Machine Learning Research 1
-1-48
-2008
+Laurens van der Maaten and Geoffrey Hinton (2008). Visualizing Data using t-SNE. Journal of Machine Learning Research Vol. 1, 1-48
 }
-~~ Optionally other standard keywords, one per line, from file KEYWORDS in ~~
-~~ the R documentation directory ~~
+
 \keyword{ package }
 \seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
+\code{\link{HyperLink}},
+\code{\link{Word2Vec}},
+\code{\link{graph.Wiki}},
+\code{\link{tsne.Wiki}}
 }
 \examples{
-~~ simple examples of the most important functions ~~
+ls("package:plotWikipedia")
 }

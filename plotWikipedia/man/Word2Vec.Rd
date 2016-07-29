@@ -2,10 +2,10 @@
 \alias{Word2Vec}
 \docType{data}
 \title{
-%%   ~~ data name/kind ... ~~
+A Matrix of Wikipedia converted by word2vec
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of the dataset. ~~
+This matrix has *** rows (documents) and 100 columns (dimenstion).
 }
 \usage{data("Word2Vec")}
 \format{
@@ -15,17 +15,10 @@
   ..$ : chr [1:6000] "Page1" "Page2" "Page3" "Page4" ...
   ..$ : chr [1:100] "Dim1" "Dim2" "Dim3" "Dim4" ...
 }
-\details{
-%%  ~~ If necessary, more details than the __description__ above ~~
-}
 \source{
-%%  ~~ reference to a publication or URL from which the data were obtained ~~
-}
-\references{
-%%  ~~ possibly secondary sources and usages ~~
+https://en.wikipedia.org/wiki/Pokémon_Go
 }
 \examples{
 data(Word2Vec)
-## maybe str(Word2Vec) ; plot(Word2Vec) ...
 }
 \keyword{datasets}

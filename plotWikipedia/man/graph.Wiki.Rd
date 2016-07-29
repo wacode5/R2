@@ -1,63 +1,33 @@
 \name{graph.Wiki}
 \alias{graph.Wiki}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+igraph function for the adjacent matrix of Wikipedia
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+This function performs graph visualization against HyperLink.
 }
 \usage{
 graph.Wiki(x, ...)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-%%     ~~Describe \code{x} here~~
+  HyperLink
 }
   \item{\dots}{
-%%     ~~Describe \code{\dots} here~~
+  Some parameters for igraph
 }
-}
-\details{
-%%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
+A graph output
 }
 \author{
-%%  ~~who you are~~
+Koki Tsuyuzaki
 }
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{HyperLink}},
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x, ...) 
-{
-    g <- graph_from_adjacency_matrix(hoge, mode = "directed", 
-        weighted = TRUE)
-    plot(g, ...)
-  }
+data(HyperLink)
+graph.Wiki(HyperLink, vertex.size=log10(rowSums(HyperLink)+1), vertex.color=rgb(0,1,1,0.5), edge.width=0.1)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
