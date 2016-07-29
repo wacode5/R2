@@ -1,0 +1,4 @@
+import(Rtsne)
+import(igraph)
+
+exportMethods("tsne.Wiki", "graph.HyperLink")
