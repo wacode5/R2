@@ -4,21 +4,18 @@
 igraph function for the adjacent matrix of Wikipedia
 }
 \description{
-This function performs graph visualization against HyperLink.
+This function converts the adjacent matrix to igraph object.
 }
 \usage{
-graph.Wiki(x, ...)
+graph.Wiki(x)
 }
 \arguments{
   \item{x}{
   HyperLink
-}
-  \item{\dots}{
-  Some parameters for igraph
-}
+  }
 }
 \value{
-A graph output
+igraph object
 }
 \author{
 Koki Tsuyuzaki
@@ -29,5 +26,5 @@ Koki Tsuyuzaki
 }
 \examples{
 data(HyperLink)
-graph.Wiki(HyperLink, vertex.size=log10(rowSums(HyperLink)+1), vertex.color=rgb(0,1,1,0.5), edge.width=0.1)
+res.graph <- graph.Wiki(HyperLink)
 }

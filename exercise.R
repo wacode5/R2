@@ -526,22 +526,68 @@ write.table(getEdgeList(HyperLink), "HyperLink_EdgeList.txt", quote=FALSE, row.n
 Word2Vec <- read.csv("Word2Vec.txt", header=FALSE)
 Word2Vec <- Word2Vec[, 2:ncol(Word2Vec)]
 
-# 関数定義（HyperLinkに対して、インタラクティブなグラフを見る）
-graph.Wiki <- function(x, ...){
-	g <- graph_from_adjacency_matrix(x, mode="directed", weighted=TRUE)
-	plot.igraph(g, vertex.label=V(g)$name, ...)
+
+# 関数定義（igraphオブジェクトを、plotlyで可視化する）
+plotlyGraph <- function(x){
+	# レイアウトを設定
+	L <- layout_nicely(x)
+	# ノード
+	vs <- V(x)
+	# エッジリストに変換
+	es <- as.data.frame(get.edgelist(x))
+	es <- es[sample(1:nrow(es), 100), ]	# ここは本番では消す
+	# ノード数
+	Nv <- length(vs)
+	# エッジ数
+	Ne <- length(es[1]$V1)
+	# 有向エッジのfromとto
+	Xn <- L[,1]
+	Yn <- L[,2]
+	# plotly
+	network <- plot_ly(type = "scatter", x = Xn, y = Yn, mode = "markers", text = vs$label, hoverinfo = 1:1512)
+
+	edge_shapes <- list()
+	for(i in 1:Ne) {
+	  v0 <- es[i,]$V1
+	  v1 <- es[i,]$V2
+
+	  edge_shape = list(
+	    type = "line",
+	    line = list(color = "#030303", width = 0.3),
+	    x0 = Xn[v0],
+	    y0 = Yn[v0],
+	    x1 = Xn[v1],
+	    y1 = Yn[v1]
+	  )
+
+	  edge_shapes[[i]] <- edge_shape
+	}
+
+	# レイアウトを設定
+	layout(
+	  network,
+	  title = 'HyperLink of Wikipedia',
+	  shapes = edge_shapes,
+	  xaxis = list(title = "", showgrid = FALSE, showticklabels = FALSE, zeroline = FALSE),
+	  yaxis = list(title = "", showgrid = FALSE, showticklabels = FALSE, zeroline = FALSE)
+	)
 }
 
-# 関数定義（Word2Vecに対してtsneを実行する）
-tsne.Wiki <- function(x, ...){
-	Rtsne(x, ...)
+# 関数定義
+plotlyScatter <- function(x){
+	# tsneの結果を可視化
+	tsne_plolty <- data.frame(x$Y)
+	colnames(tsne_plolty) <- paste0("Dim", 1:2)
+	# ここを実際は、記事名に帰る
+	plot_ly(tsne_plolty, x=~Dim1, y=~Dim2, type = "scatter", text=1:1512)
 }
+
 
 ########################################
 ###### Step.2 : ディレクトリを生成 ########
 ########################################
 system("rm -rf plotWikipedia")
-package.skeleton(name="plotWikipedia", list=c("Word2Vec", "HyperLink", "tsne.Wiki", "graph.Wiki"))
+package.skeleton(name="plotWikipedia", list=c("Word2Vec", "HyperLink", "plotlyGraph", "plotlyScatter"))
 # まずRead-and-delete-meを削除
 system("rm -rf plotWikipedia/Read-and-delete-me")
 
@@ -569,41 +615,48 @@ system("cp written_files/plotWikipedia-package.Rd plotWikipedia/man/")
 system("cp written_files/HyperLink.Rd plotWikipedia/man/")
 # Word2Vec（データ）のヘルプ
 system("cp written_files/Word2Vec.Rd plotWikipedia/man/")
-# graph.Wiki関数のヘルプ
-system("cp written_files/graph.Wiki.Rd plotWikipedia/man/")
-# tsne.Wiki関数のヘルプ
-system("cp written_files/tsne.Wiki.Rd plotWikipedia/man/")
+# plotlyGraph関数のヘルプ
+system("cp written_files/plotlyGraph.Rd plotWikipedia/man/")
+# plotlyScatter関数のヘルプ
+system("cp written_files/plotlyScatter.Rd plotWikipedia/man/")
 
 ########################################
 ######## Step.5 : デモコードの設定 ########
+########（すでに書いたものをコピー） ########
 ########################################
 system("mkdir -p plotWikipedia/demo")
 system("cp written_files/00Index plotWikipedia/demo")
-system("cp written_files/plotWikipedia.R plotWikipedia/demo")
+system("cp written_files/demo_graph.R plotWikipedia/demo")
+system("cp written_files/demo_tsne.R plotWikipedia/demo")
 
 ########################################
 ########## Step.6 : ヴィネット ###########
+########（すでに書いたものをコピー） ########
 ########################################
 system("mkdir -p plotWikipedia/vignettes")
 system("cp written_files/plotWikipedia.Rmd plotWikipedia/vignettes")
+system("cp written_files/plotWikipedia.html plotWikipedia/vignettes")
+system("mkdir -p plotWikipedia/inst")
+system("mkdir -p plotWikipedia/inst/doc")
+system("cp written_files/plotWikipedia.Rmd plotWikipedia/inst/doc")
+system("cp written_files/plotWikipedia.html plotWikipedia/inst/doc")
 
 ########################################
 ########## Step.7 : 単体テスト ###########
+########（すでに書いたものをコピー） ########
 ########################################
 # plotWikipedia/tests/testthat以下に、test_*.Rというファイルを置く
 # R CMD CHECK時に呼び出される
 system("mkdir -p plotWikipedia/tests")
 system("mkdir -p plotWikipedia/tests/testthat")
-system("cp testthat.R plotWikipedia/tests/")
-system("cp test_HyperLink.R plotWikipedia/tests/test_HyperLink.R")
-system("cp test_Word2Vec.R plotWikipedia/tests/test_Word2Vec.R")
-system("cp test_graph.Wiki.R plotWikipedia/tests/test_graph.Wiki.R")
-system("cp test_tsne.Wiki.R plotWikipedia/tests/test_tsne.Wiki.R")
+system("cp written_files/testthat.R plotWikipedia/tests/")
+system("cp written_files/test_HyperLink.R plotWikipedia/tests/testthat/")
+system("cp written_files/test_Word2Vec.R plotWikipedia/tests/testthat/")
 
 ########################################
 ######### Step.8 : R CMD CHECK #########
 ########################################
-system("R CMD CHECK plotWikipedia")
+system("R CMD CHECK plotWikipedia > log")
 
 ########################################
 ######### Step.9 : R CMD BUILD #########
@@ -615,29 +668,32 @@ system("R CMD BUILD --resave-data plotWikipedia")
 ########################################
 system("R CMD INSTALL plotWikipedia_0.99.0.tar.gz")
 
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-# # # # # # # # # # # 5. 言語の特性を生かした解析例 # # # # # # # # # #
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# # # # # # # # # # # # 5. 言語の特性を生かした解析例 # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # パッケージ読み込み
-library("plotly")
+library("igraph")
+library("Rtsne")
+
 # 自作パッケージ読み込み
 library("plotWikipedia")
+
 # 自作データ読み込み
 data("HyperLink")
 data("Word2Vec")
 
-# グラフを可視化
-graph.Wiki(HyperLink, vertex.size=log10(rowSums(HyperLink)+1), vertex.color=rgb(0,1,1,0.5), edge.width=0.1)
+# igraphオブジェクト化
+res.igraph <- graph_from_adjacency_matrix(HyperLink, mode="directed", weighted=TRUE)
+# 可視化
+set.seed(123)
+plotlyGraph(res.igraph)
+
 
 # tsne実行
-res.tsne <- tsne.Wiki(Word2Vec, dims=2)
-# plot(res.tsne$Y, pch=16, main="t-SNE of Pokemon GO-related Wikipedia pages", col=rgb(0,0,0,0.5), xlab="Dim1", ylab="Dim2")
-
-# tsneの結果を可視化
-tsne_plolty <- data.frame(res.tsne$Y)
-colnames(tsne_plolty) <- paste0("Dim", 1:2)
-plot_ly(tsne_plolty, x=~Dim1, y=~Dim2, type = "scatter", text=PageTitles)
-
+set.seed(123)
+res.tsne <- Rtsne(Word2Vec, dims=2)
+# 可視化
+plotlyScatter(res.tsne)
 
 
 

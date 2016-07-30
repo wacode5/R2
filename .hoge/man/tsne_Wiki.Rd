@@ -1,5 +1,5 @@
-\name{tsne.Wiki}
-\alias{tsne.Wiki}
+\name{tsne_Wiki}
+\alias{tsne_Wiki}
 \title{
 t-SNE function for the matrix of Wikipedia converted by word2vec
 }
@@ -7,7 +7,7 @@ t-SNE function for the matrix of Wikipedia converted by word2vec
 This function performs t-SNE against Word2Vec.
 }
 \usage{
-tsne.Wiki(x, ...)
+tsne_Wiki(x, ...)
 }
 \arguments{
   \item{x}{
@@ -32,6 +32,5 @@ Koki Tsuyuzaki
 }
 \examples{
 data(Word2Vec)
-res.tsne <- tsne.Wiki(Word2Vec, dims=2)
-plot(res.tsne$Y, pch=16, main="t-SNE of Pokemon GO-related Wikipedia pages", col=rgb(0,0,0,0.5), xlab="Dim1", ylab="Dim2")
+res.tsne <- tsne_Wiki(Word2Vec, dims=2)
 }

@@ -1,4 +1,3 @@
-import(Rtsne)
-import(igraph)
+import(plotly)
 
-export(tsne.Wiki, graph.Wiki)
+export(plotlyGraph, plotlyScatter)

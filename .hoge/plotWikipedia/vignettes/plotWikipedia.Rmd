@@ -1,0 +1,80 @@
+---
+title: "t-SNE and plot for the Wikipedia Data"
+author: "露崎弘毅"
+date: "2016年8月6日"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Vignette Title}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Overview
+
+このヴィネットは、2016年8月6日に行われた、[WACODE夏期講習: Python, R, Juliaによるパッケージ開発を一日で学ぶ](https://atnd.org/events/79769)の、Rパートで作成されたplotWikipediaパッケージの使い方を説明するためのものです。
+
+自作した、plotWikipediaパッケージは、library関数で読み込みます。
+```{r}
+# 自作パッケージ読み込み
+library("plotWikipedia")
+```
+
+用意した2つのデータは、data関数で読み込みます。
+```{r}
+# 自作データ読み込み
+data("HyperLink")
+data("Word2Vec")
+```
+
+
+igraphパッケージの自作した、graph.Wiki関数を使って、HyperLinkの可視化を行います。
+```{r}
+library("igraph")
+# グラフを可視化
+set.seed(123)
+res.igraph <- graph_from_adjacency_matrix(HyperLink, mode="directed", weighted=TRUE)
+```
+
+自作した、plotlyGraph関数で可視化を行います。
+```{r, fig.height=8, fig.width=8}
+plotlyGraph(res.igraph)
+```
+
+
+RsneパッケージのRtsne関数を使って、Word2Vecを次元圧縮します。
+```{r}
+library("Rtsne")
+
+# tsne実行
+set.seed(123)
+res.tsne <- Rtsne(Word2Vec, dims=2)
+```
+
+自作した、plotlyScatter関数で可視化を行います。
+```{r, fig.height=8, fig.width=8}
+plotlyScatter(res.tsne)
+```
+
+
+ヴィネットの最後は、以下のようにsessionInfo関数を実行し、どのような環境でヴィネットが正常にコンパイルされたのかを示しておきます。
+
+## Session Info
+```{r}
+sessionInfo()
+```
+
+
+参考文献がある場合は、Referencesという項目も作っておきます。
+
+## References
+
+[1] Yoav Goldberg and Omer Levy (2014). word2vec Explained: deriving Mikolov et al.'s negative-sampling word-embedding method. arXiv 1402.3722
+
+[2] Laurens van der Maaten and Geoffrey Hinton (2008). Visualizing Data using t-SNE. Journal of Machine Learning Research Vol. 1, 1-48
+
+[3] Pokémon_Go
+https://en.wikipedia.org/wiki/Pokémon_Go

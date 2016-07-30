@@ -16,6 +16,9 @@ This matrix has *** rows (documents) and 100 columns (dimenstion).
   ..$ : chr [1:100] "Dim1" "Dim2" "Dim3" "Dim4" ...
 }
 \source{
+Yoav Goldberg and Omer Levy (2014). word2vec Explained: deriving Mikolov et al.'s negative-sampling word-embedding method. arXiv 1402.3722
+
+Pokémon_Go
 https://en.wikipedia.org/wiki/Pokémon_Go
 }
 \examples{

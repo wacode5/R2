@@ -13,6 +13,7 @@ This matrix has *** rows and *** columns (documents).
  int [1:6000, 1:6000] 0 0 0 0 1 0 0 0 0 1 ...
 }
 \source{
+Pokémon_Go
 https://en.wikipedia.org/wiki/Pokémon_Go
 }
 \examples{
