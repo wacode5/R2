@@ -1,3 +1,0 @@
-import(plotly)
-
-export(plotlyGraph, plotlyScatter)
