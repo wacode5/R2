@@ -1,0 +1,20 @@
+language: r
+
+cache: packages
+
+r:
+    - oldrel
+    - release
+    - devel
+
+before_install:
+    - cd plotWikipedia
+
+notifications:
+  emails:
+    - k.t.the-answer@hotmail.co.jp
+  on_failure: always
+
+os:
+    - linux
+    - osx
