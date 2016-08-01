@@ -13,7 +13,6 @@ script:
     - export _R_CHECK_CRAN_INCOMING_=false
     - export NOT_CRAN=true
     - export R_PROFILE=~/.Rprofile.site
-    - R --version
     - R CMD build --resave-data plotWikipedia
     - R CMD check plotWikipedia.0.99.0.tar.gz
     - R CMD install plotWikipedia.0.99.0.tar.gz
