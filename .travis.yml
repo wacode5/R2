@@ -10,9 +10,8 @@ install:
 script:
     - R -e 'sessionInfo()'
     - R -e 'library("devtools");devtools::check("plotWikipedia")'
-    - R -e 'library("devtools");
-            devtools::build("plotWikipedia", binary=TRUE);
-            devtools::install("plotWikipedia_0.99.0_R_x86_64-pc-linux-gnu.tar.gz")'
+    - R -e 'library("devtools");devtools::build("plotWikipedia", binary=TRUE)'
+    - R -e 'library("devtools");devtools::install("plotWikipedia")'
 notifications:
   emails:
     - k.t.the-answer@hotmail.co.jp
