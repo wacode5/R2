@@ -3,7 +3,8 @@ cache: packages
 r:
     - release
     - devel
-
+before_install:
+    - cd plotWikipedia
 script:
     - export TRAVIS_R_VERSION=3.2.4
     - export R_LIBS_USER=~/R/Library
@@ -11,13 +12,9 @@ script:
     - export _R_CHECK_CRAN_INCOMING_=false
     - export NOT_CRAN=true
     - export R_PROFILE=~/.Rprofile.site
-
-before_install:
-    - cd plotWikipedia
 notifications:
   emails:
     - k.t.the-answer@hotmail.co.jp
   on_failure: always
 os:
     - linux
-    - osx
