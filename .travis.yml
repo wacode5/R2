@@ -4,6 +4,8 @@ cache: packages
 r:
     - release
     - devel
+before_install:
+    - cd plotWikipedia
 script:
     - export TRAVIS_R_VERSION=3.2.4
     - export R_LIBS_USER=~/R/Library
