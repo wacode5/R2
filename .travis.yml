@@ -2,13 +2,17 @@ language: r
 sudo: required
 cache: packages
 r:
+    - oldrel
+    - release
     - devel
 install:
     - R -e 'install.packages(c("plotly", "igraph", "knitr", "testthat", "devtools", "roxygen2", "rmarkdown"))'
 script:
     - R -e 'sessionInfo()'
     - R -e 'library("devtools");devtools::check("plotWikipedia")'
-    - R -e 'library("devtools");devtools::build("plotWikipedia", binary=TRUE);devtools::install("plotWikipedia_0.99.0_R_x86_64-pc-linux-gnu.tar.gz")'
+    - R -e 'library("devtools");
+            devtools::build("plotWikipedia", binary=TRUE);
+            devtools::install("plotWikipedia_0.99.0_R_x86_64-pc-linux-gnu.tar.gz")'
 notifications:
   emails:
     - k.t.the-answer@hotmail.co.jp
