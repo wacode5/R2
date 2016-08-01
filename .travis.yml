@@ -1,16 +1,19 @@
 language: r
-sudo: false
+sudo: required
 cache: packages
 r:
-    - release
     - devel
-script:
-    - R CMD build --resave-data plotWikipedia
-    - R CMD check plotWikipedia.0.99.0.tar.gz
-    - R CMD install plotWikipedia.0.99.0.tar.gz
+
+install:
+    - R -e 'install.packages(c("plotly", "igraph", "knitr", "testthat"))'
+
+# script:
+#     - R CMD build --resave-data plotWikipedia
+#     - R CMD check plotWikipedia.0.99.0.tar.gz
+#     - R CMD install plotWikipedia.0.99.0.tar.gz
 notifications:
   emails:
     - k.t.the-answer@hotmail.co.jp
   on_failure: always
-os:
-    - linux
+os: linux
+dist: trusty
