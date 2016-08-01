@@ -4,15 +4,7 @@ cache: packages
 r:
     - release
     - devel
-before_install:
-    - cd plotWikipedia
 script:
-    - export TRAVIS_R_VERSION=3.2.4
-    - export R_LIBS_USER=~/R/Library
-    - export R_LIBS_SITE=/usr/local/lib/R/site-library:/usr/lib/R/site-library
-    - export _R_CHECK_CRAN_INCOMING_=false
-    - export NOT_CRAN=true
-    - export R_PROFILE=~/.Rprofile.site
     - R CMD build --resave-data plotWikipedia
     - R CMD check plotWikipedia.0.99.0.tar.gz
     - R CMD install plotWikipedia.0.99.0.tar.gz
