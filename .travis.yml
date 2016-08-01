@@ -6,14 +6,11 @@ r:
 
 install:
     - R -e 'install.packages(c("plotly", "igraph", "knitr", "testthat"))'
-
-# script:
-#     - R CMD build --resave-data plotWikipedia
-#     - R CMD check plotWikipedia.0.99.0.tar.gz
-#     - R CMD install plotWikipedia.0.99.0.tar.gz
+script:
+    - R -e 'library("devtools");devtools::check("plotWikipedia")'
+    - R -e 'library("devtools");devtools::build("plotWikipedia")'
+    - R -e 'library("devtools");devtools::install("plotWikipedia.0.99.0.tar.gz")'
 notifications:
   emails:
     - k.t.the-answer@hotmail.co.jp
   on_failure: always
-os: linux
-dist: trusty
