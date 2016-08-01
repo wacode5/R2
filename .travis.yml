@@ -5,12 +5,17 @@ r:
     - devel
 
 install:
-    - R -e 'install.packages(c("plotly", "igraph", "knitr", "testthat"))'
+    - R -e 'install.packages(c("plotly", "igraph", "knitr", "testthat", "devtools"))'
 script:
     - R -e 'library("devtools");devtools::check("plotWikipedia")'
-    - R -e 'library("devtools");devtools::build("plotWikipedia")'
+    - R -e 'library("devtools");devtools::build("plotWikipedia", binary=TRUE)'
     - R -e 'library("devtools");devtools::install("plotWikipedia.0.99.0.tar.gz")'
 notifications:
   emails:
     - k.t.the-answer@hotmail.co.jp
   on_failure: always
+
+# Reference
+# https://docs.travis-ci.com/user/languages/r/
+# http://r-pkgs.had.co.nz/check.html
+# https://github.com/travis-ci/travis-ci/issues/5775

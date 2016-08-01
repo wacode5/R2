@@ -5,8 +5,14 @@ Version: 0.99.0
 Date: 2016-08-06
 Author: Koki Tsuyuzaki
 Maintainer: Koki Tsuyuzaki <koki.tsuyuzaki@gmail.com>
-Depends: plotly
-Suggests: Rtsne, igraph, knitr, testthat
+Depends:
+    plotly
+Suggests:
+    Rtsne,
+    igraph,
+    knitr,
+    testthat
 Description: This package contains the data and the function of Wikipedia.
 License: Artistic-2.0
 VignetteBuilder: knitr
+RoxygenNote: 5.0.1
