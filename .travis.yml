@@ -5,7 +5,7 @@ r:
     - devel
 
 install:
-    - R -e 'install.packages(c("plotly", "igraph", "knitr", "testthat", "devtools"))'
+    - R -e 'install.packages(c("plotly", "igraph", "knitr", "testthat", "devtools", "rxoygen2"))'
 script:
     - R -e 'library("devtools");devtools::check("plotWikipedia")'
     - R -e 'library("devtools");devtools::build("plotWikipedia", binary=TRUE)'

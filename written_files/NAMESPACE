@@ -1,3 +1,4 @@
 import(plotly)
+import(igraph)
 
 export(plotlyGraph, plotlyScatter)
