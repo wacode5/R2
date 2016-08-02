@@ -130,7 +130,7 @@ system("cp written_files/test_Word2Vec.R plotWikipedia/tests/testthat/")
 # ########################################
 # ######### Step.8 : R CMD CHECK #########
 # ########################################
-# system("R CMD CHECK plotWikipedia > log")
+system("R CMD CHECK plotWikipedia > log")
 
 ########################################
 ######### Step.9 : R CMD BUILD #########

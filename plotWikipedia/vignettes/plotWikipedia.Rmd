@@ -1,5 +1,5 @@
 ---
-title: "t-SNE and plot for the Wikipedia Data"
+title: "t-SNE and visualization for the Wikipedia Data"
 author: "露崎弘毅"
 date: "2016年8月6日"
 output: rmarkdown::html_vignette
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 このヴィネットは、2016年8月6日に行われた、[WACODE夏期講習: Python, R, Juliaによるパッケージ開発を一日で学ぶ](https://atnd.org/events/79769)の、Rパートで作成されたplotWikipediaパッケージの使い方を説明するためのものです。
 
 自作した、plotWikipediaパッケージは、library関数で読み込みます。
-```{r}
+```{r, echo=FALSE}
 # 自作パッケージ読み込み
 library("plotWikipedia")
 ```
@@ -46,7 +46,7 @@ label.Pokemon[grep("Pokémon", names(label.Pokemon))] <- "Pokemon"
 ```
 
 自作した、plotlyGraph関数で可視化を行います。
-```{r, fig.height=8, fig.width=8}
+```{r, fig.height=8, fig.width=9}
 set.seed(123)
 plotlyGraph(res.igraph, label=rownames(HyperLink), color=label.Pokemon)
 ```
@@ -61,7 +61,7 @@ res.tsne <- Rtsne(Word2Vec, dims=2)
 ```
 
 自作した、plotlyScatter関数で可視化を行います。
-```{r, fig.height=8, fig.width=8}
+```{r, fig.height=8, fig.width=9}
 plotlyScatter(res.tsne, label=rownames(Word2Vec), color=label.Pokemon)
 ```
 

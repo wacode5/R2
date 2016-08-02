@@ -1,6 +1,6 @@
 Package: plotWikipedia
 Type: Package
-Title: t-SNE and plot for the Wikipedia Data
+Title: t-SNE and visualization for the Wikipedia Data
 Version: 0.99.0
 Date: 2016-08-06
 Author: Koki Tsuyuzaki
