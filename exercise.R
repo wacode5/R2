@@ -481,61 +481,29 @@ ls("package:rgl") # rglパッケージ内で定義されたオブジェクト
 # 最初に動くコードを書いておく
 install.packages("Rtsne")
 install.packages("igraph")
+install.packages("plotly")
+install.packages("knitr")
+install.packages("testthat")
 library("Rtsne")
 library("igraph")
+library("plotly")
+library("knitr")
+library("testthat")
 
 ########################################
 ######## 事前に必要だった前処理 ############
 ########################################
-# ページ間のリンク関係データを読み込み
-HyperLink <- read.csv("HyperLink.txt", header=TRUE)
-HyperLink <- as.matrix(HyperLink)
-PageTitles <- gsub("X.wiki.", "", colnames(HyperLink))
-PageTitles <- gsub("\\.", "%", PageTitles)
-PageTitles <- gsub("_%", "", PageTitles)
-PageTitles <- gsub("%$", "", PageTitles)
-PageTitles <- gsub("%HTTP$", "", PageTitles)
-PageTitles[274] <- "Web_Proxy_Auto_Discovery_Protocol"
-PageTitles[284] <- "Application_Layer_Protocol_Negotiation"
-PageTitles[480] <- "ワールドトレードセンター"
-PageTitles[899] <- "Vert_manager"
-PageTitles[923] <- "K_Meleon"
-PageTitles[1453] <- "アップル_インコーポレイテッド"
-for(i in 1:length(PageTitles)){
-	print(i)
-	# if(substr(PageTitles[i], 1, 1) == "%"){
-	if(length(grep("%", PageTitles[i])) == 1){
-		PageTitles[i] <- URLdecode(PageTitles[i])
-		print(PageTitles[i])
-	}else{
-		print(PageTitles[i])
-	}
-}
-PageTitles <- gsub("\\.", "_", PageTitles)
-
-# 行名、列名をぺージ名にする
-rownames(HyperLink) <- PageTitles
-colnames(HyperLink) <- PageTitles
-
-# 隣接行列をエッジ同士のリストに変換（Cytoscape用）
-install.packages("PCIT")
-library("PCIT")
-write.table(getEdgeList(HyperLink), "HyperLink_EdgeList.txt", quote=FALSE, row.names=FALSE, col.names=FALSE)
-
-# Word2Vecデータを読み込み
-Word2Vec <- read.csv("Word2Vec.txt", header=FALSE)
-Word2Vec <- Word2Vec[, 2:ncol(Word2Vec)]
-
+# Word2Vec, HyperLinkが生成される
+source("preprocess.R")
 
 # 関数定義（igraphオブジェクトを、plotlyで可視化する）
-plotlyGraph <- function(x){
+plotlyGraph <- function(x, label, color){
 	# レイアウトを設定
 	L <- layout_nicely(x)
 	# ノード
 	vs <- V(x)
 	# エッジリストに変換
 	es <- as.data.frame(get.edgelist(x))
-	es <- es[sample(1:nrow(es), 100), ]	# ここは本番では消す
 	# ノード数
 	Nv <- length(vs)
 	# エッジ数
@@ -544,7 +512,7 @@ plotlyGraph <- function(x){
 	Xn <- L[,1]
 	Yn <- L[,2]
 	# plotly
-	network <- plot_ly(type = "scatter", x = Xn, y = Yn, mode = "markers", text = vs$label, hoverinfo = 1:1512)
+	network <- plot_ly(type = "scatter", x = Xn, y = Yn, mode = "markers", text = names(vs), hoverinfo = "text", marker=list(size=20, opacity=0.5, text=label), colors=c("blue", "red"), color=as.factor(color))
 
 	edge_shapes <- list()
 	for(i in 1:Ne) {
@@ -553,7 +521,7 @@ plotlyGraph <- function(x){
 
 	  edge_shape = list(
 	    type = "line",
-	    line = list(color = "#030303", width = 0.3),
+	    line = list(color = rgb(0,0,0.1), width = 0.001),
 	    x0 = Xn[v0],
 	    y0 = Yn[v0],
 	    x1 = Xn[v1],
@@ -574,14 +542,12 @@ plotlyGraph <- function(x){
 }
 
 # 関数定義
-plotlyScatter <- function(x){
+plotlyScatter <- function(x, label, color){
 	# tsneの結果を可視化
 	tsne_plolty <- data.frame(x$Y)
 	colnames(tsne_plolty) <- paste0("Dim", 1:2)
-	# ここを実際は、記事名に帰る
-	plot_ly(tsne_plolty, x=~Dim1, y=~Dim2, type = "scatter", text=1:1512)
+	plot_ly(tsne_plolty, x=~Dim1, y=~Dim2, type="scatter", mode="markers", colors=c("purple", "orange"), color=as.factor(color), marker=list(size=20, opacity=0.5), text=label, hoverinfo = "text")
 }
-
 
 ########################################
 ###### Step.2 : ディレクトリを生成 ########
@@ -671,10 +637,6 @@ system("R CMD INSTALL plotWikipedia_0.99.0.tar.gz")
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # 5. 言語の特性を生かした解析例 # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-# パッケージ読み込み
-library("igraph")
-library("Rtsne")
-
 # 自作パッケージ読み込み
 library("plotWikipedia")
 
@@ -684,18 +646,19 @@ data("Word2Vec")
 
 # igraphオブジェクト化
 res.igraph <- graph_from_adjacency_matrix(HyperLink, mode="directed", weighted=TRUE)
+label.Pokemon <- rep("Other", length=length(V(res.igraph)))
+names(label.Pokemon) <- rownames(HyperLink)
+label.Pokemon[grep("Pokémon", names(label.Pokemon))] <- "Pokemon"
+
 # 可視化
 set.seed(123)
-plotlyGraph(res.igraph)
-
+plotlyGraph(res.igraph, label=rownames(HyperLink), color=label.Pokemon)
 
 # tsne実行
 set.seed(123)
 res.tsne <- Rtsne(Word2Vec, dims=2)
+write.table(res.tsne$Y, "resultRtsne.txt", quote=FALSE, row.names=rownames(Word2Vec), col.names=paste0("Dim", 1:2))
+
 # 可視化
-plotlyScatter(res.tsne)
-
-
-
-
+plotlyScatter(res.tsne, label=rownames(Word2Vec), color=label.Pokemon)
 
