@@ -14,7 +14,7 @@ function(x, label, color){
 	Xn <- L[,1]
 	Yn <- L[,2]
 	# plotly
-	network <- plot_ly(type = "scatter", x = Xn, y = Yn, mode = "markers", text = names(vs), hoverinfo = "text", marker=list(size=20, opacity=0.5, text=label), colors=c("blue", "red"), color=as.factor(color))
+	network <- plot_ly(type = "scatter", x = Xn, y = Yn, mode = "markers", text = names(vs), hoverinfo = "text", marker=list(size=20, opacity=0.5, text=label), colors=c("red", "blue"), color=as.factor(color))
 
 	edge_shapes <- list()
 	for(i in 1:Ne) {
@@ -23,7 +23,7 @@ function(x, label, color){
 
 	  edge_shape = list(
 	    type = "line",
-	    line = list(color = rgb(0,0,0.1), width = 0.001),
+	    line = list(color = rgb(0,0,0.1), width = 0.005),
 	    x0 = Xn[v0],
 	    y0 = Yn[v0],
 	    x1 = Xn[v1],

@@ -15,7 +15,20 @@ tutorial for R level 2
 
 # 依存パッケージ
 ```{r}
-install.packages("")
+install.packages("rgl", repos="https://cran.ism.ac.jp")
+
+source("https://bioconductor.org/biocLite.R")
+biocLite("meshr")
+
+install.packages("devtools", repos="https://cran.ism.ac.jp")
+library("devtools")
+install_github("rikenbit/CCIPCA")
+
+install.packages("Rtsne", repos="https://cran.ism.ac.jp")
+install.packages("igraph", repos="https://cran.ism.ac.jp")
+install.packages("plotly", repos="https://cran.ism.ac.jp")
+install.packages("knitr", repos="https://cran.ism.ac.jp")
+install.packages("testthat", repos="https://cran.ism.ac.jp")
 ```
 
 # コードの動かし方

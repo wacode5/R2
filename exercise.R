@@ -383,7 +383,7 @@ hanako$show()
 # パッケージをまたいで継承できる
 # R5より速い
 
-install.packages("R6")
+install.packages("R6", repos="https://cran.ism.ac.jp")
 library("R6")
 
 st <- R6Class("Student", # クラス名は大文字、小文字どちらでも
@@ -452,18 +452,21 @@ try(taro$bool_program()) # プライベートな関数はアクセスできな�
 # 1. パッケージの使い方
 # 1.2ダウンロード、インストール、ロード
 # CRANパッケージの場合
-install.packages("rgl")
+# 会場ではダウンロードしない
+# install.packages("rgl", repos="https://cran.ism.ac.jp")
 library("rgl")
 
-# Bioconductorパッケージの場合
-source("https://bioconductor.org/biocLite.R")
-biocLite("meshr")
+# # Bioconductorパッケージの場合
+# 会場ではダウンロードしない
+# source("https://bioconductor.org/biocLite.R")
+# biocLite("meshr")
 library("meshr")
 
-# GitHubパッケージ（野良パッケージ）の場合
-install.packages("devtools")
-library("devtools")
-install_github("rikenbit/CCIPCA")
+# # GitHubパッケージ（野良パッケージ）の場合
+# 会場ではダウンロードしない
+# install.packages("devtools", repos="https://cran.ism.ac.jp")
+# library("devtools")
+# install_github("rikenbit/CCIPCA")
 library("CCIPCA")
 
 ########################################
@@ -478,12 +481,12 @@ ls("package:rgl") # rglパッケージ内で定義されたオブジェクト
 ########################################
 ###### Step.1 : オブジェクトを用意 ########
 ########################################
-# 最初に動くコードを書いておく
-# install.packages("Rtsne")
-# install.packages("igraph")
-# install.packages("plotly")
-# install.packages("knitr")
-# install.packages("testthat")
+# 会場ではダウンロードしない
+# install.packages("Rtsne", repos="https://cran.ism.ac.jp")
+# install.packages("igraph", repos="https://cran.ism.ac.jp")
+# install.packages("plotly", repos="https://cran.ism.ac.jp")
+# install.packages("knitr", repos="https://cran.ism.ac.jp")
+# install.packages("testthat", repos="https://cran.ism.ac.jp")
 library("Rtsne")
 library("igraph")
 library("plotly")
@@ -512,7 +515,7 @@ plotlyGraph <- function(x, label, color){
 	Xn <- L[,1]
 	Yn <- L[,2]
 	# plotly
-	network <- plot_ly(type = "scatter", x = Xn, y = Yn, mode = "markers", text = names(vs), hoverinfo = "text", marker=list(size=20, opacity=0.5, text=label), colors=c("blue", "red"), color=as.factor(color))
+	network <- plot_ly(type = "scatter", x = Xn, y = Yn, mode = "markers", text = names(vs), hoverinfo = "text", marker=list(size=20, opacity=0.5, text=label), colors=c("red", "blue"), color=as.factor(color))
 
 	edge_shapes <- list()
 	for(i in 1:Ne) {
@@ -546,7 +549,7 @@ plotlyScatter <- function(x, label, color){
 	# tsneの結果を可視化
 	tsne_plolty <- data.frame(x$Y)
 	colnames(tsne_plolty) <- paste0("Dim", 1:2)
-	plot_ly(tsne_plolty, x=~Dim1, y=~Dim2, type="scatter", mode="markers", colors=c("purple", "orange"), color=as.factor(color), marker=list(size=20, opacity=0.5), text=label, hoverinfo = "text")
+	plot_ly(tsne_plolty, x=Dim1, y=Dim2, type="scatter", mode="markers", colors=c("orange", "purple"), color=as.factor(color), marker=list(size=20, opacity=0.5), text=label, hoverinfo = "text")
 }
 
 ########################################
@@ -647,6 +650,12 @@ data("HyperLink")
 data("Word2Vec")
 data("label.Pokemon")
 
+# 自作のヘルプ、デモ、ヴィネットを見てみる
+# help("HyperLink")
+demo("demo_graph")
+demo("demo_tsne")
+vignette("plotWikipedia")
+
 # igraphオブジェクト化
 res.igraph <- graph_from_adjacency_matrix(HyperLink, mode="directed", weighted=TRUE)
 
@@ -661,4 +670,5 @@ res.tsne <- Rtsne(Word2Vec, dims=2)
 # 可視化
 plotlyScatter(res.tsne, label=rownames(Word2Vec), color=label.Pokemon)
 
+# juliaでクラスタリングする用のデータ
 write.table(res.tsne$Y, "resultRtsne.txt", quote=FALSE, row.names=rownames(Word2Vec), col.names=paste0("Dim", 1:2))
