@@ -1,3 +1,5 @@
+library("Rtsne")
+
 data("Word2Vec")
 
 context("Test of Word2Vec...")

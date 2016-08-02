@@ -479,22 +479,22 @@ ls("package:rgl") # rglパッケージ内で定義されたオブジェクト
 ###### Step.1 : オブジェクトを用意 ########
 ########################################
 # 最初に動くコードを書いておく
-install.packages("Rtsne")
-install.packages("igraph")
-install.packages("plotly")
-install.packages("knitr")
-install.packages("testthat")
+# install.packages("Rtsne")
+# install.packages("igraph")
+# install.packages("plotly")
+# install.packages("knitr")
+# install.packages("testthat")
 library("Rtsne")
 library("igraph")
 library("plotly")
 library("knitr")
 library("testthat")
 
-########################################
-######## 事前に必要だった前処理 ############
-########################################
-# Word2Vec, HyperLinkが生成される
-source("preprocess.R")
+# source("preprocess.R") # Word2Vec, HyperLinkが生成される
+# 加工済みデータを読み込み
+load("HyperLink.RData")
+load("Word2Vec.RData")
+load("label.Pokemon.RData")
 
 # 関数定義（igraphオブジェクトを、plotlyで可視化する）
 plotlyGraph <- function(x, label, color){
@@ -521,7 +521,7 @@ plotlyGraph <- function(x, label, color){
 
 	  edge_shape = list(
 	    type = "line",
-	    line = list(color = rgb(0,0,0.1), width = 0.001),
+	    line = list(color = rgb(0,0,0.1), width = 0.005),
 	    x0 = Xn[v0],
 	    y0 = Yn[v0],
 	    x1 = Xn[v1],
@@ -553,7 +553,7 @@ plotlyScatter <- function(x, label, color){
 ###### Step.2 : ディレクトリを生成 ########
 ########################################
 system("rm -rf plotWikipedia")
-package.skeleton(name="plotWikipedia", list=c("Word2Vec", "HyperLink", "plotlyGraph", "plotlyScatter"))
+package.skeleton(name="plotWikipedia", list=c("Word2Vec", "HyperLink", "label.Pokemon", "plotlyGraph", "plotlyScatter"))
 # まずRead-and-delete-meを削除
 system("rm -rf plotWikipedia/Read-and-delete-me")
 
@@ -581,6 +581,8 @@ system("cp written_files/plotWikipedia-package.Rd plotWikipedia/man/")
 system("cp written_files/HyperLink.Rd plotWikipedia/man/")
 # Word2Vec（データ）のヘルプ
 system("cp written_files/Word2Vec.Rd plotWikipedia/man/")
+# label.Pokemon（データ）のヘルプ
+system("cp written_files/label.Pokemon.Rd plotWikipedia/man/")
 # plotlyGraph関数のヘルプ
 system("cp written_files/plotlyGraph.Rd plotWikipedia/man/")
 # plotlyScatter関数のヘルプ
@@ -622,7 +624,7 @@ system("cp written_files/test_Word2Vec.R plotWikipedia/tests/testthat/")
 ########################################
 ######### Step.8 : R CMD CHECK #########
 ########################################
-system("R CMD CHECK plotWikipedia > log")
+system("R CMD CHECK plotWikipedia")
 
 ########################################
 ######### Step.9 : R CMD BUILD #########
@@ -643,12 +645,10 @@ library("plotWikipedia")
 # 自作データ読み込み
 data("HyperLink")
 data("Word2Vec")
+data("label.Pokemon")
 
 # igraphオブジェクト化
 res.igraph <- graph_from_adjacency_matrix(HyperLink, mode="directed", weighted=TRUE)
-label.Pokemon <- rep("Other", length=length(V(res.igraph)))
-names(label.Pokemon) <- rownames(HyperLink)
-label.Pokemon[grep("Pokémon", names(label.Pokemon))] <- "Pokemon"
 
 # 可視化
 set.seed(123)
@@ -657,8 +657,8 @@ plotlyGraph(res.igraph, label=rownames(HyperLink), color=label.Pokemon)
 # tsne実行
 set.seed(123)
 res.tsne <- Rtsne(Word2Vec, dims=2)
-write.table(res.tsne$Y, "resultRtsne.txt", quote=FALSE, row.names=rownames(Word2Vec), col.names=paste0("Dim", 1:2))
 
 # 可視化
 plotlyScatter(res.tsne, label=rownames(Word2Vec), color=label.Pokemon)
 
+write.table(res.tsne$Y, "resultRtsne.txt", quote=FALSE, row.names=rownames(Word2Vec), col.names=paste0("Dim", 1:2))

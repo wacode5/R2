@@ -57,9 +57,16 @@ PageTitles[grep("Pokémon", PageTitles)]
 HyperLink <- HyperLink[PageTitles, PageTitles]
 Word2Vec <- Word2Vec[PageTitles, ]
 
+
+# ラベル情報
+label.Pokemon <- rep("Other", length=nrow(HyperLink))
+names(label.Pokemon) <- rownames(HyperLink)
+label.Pokemon[grep("Pokémon", names(label.Pokemon))] <- "Pokemon"
+
 # 保存
 save(HyperLink, file="HyperLink.RData")
 save(Word2Vec, file="Word2Vec.RData")
+save(label.Pokemon, file="label.Pokemon.RData")
 
 # データ削除（GitHubで転送できないから）
 system("rm result_vector.csv")

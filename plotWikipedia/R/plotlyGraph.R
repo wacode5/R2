@@ -1,12 +1,11 @@
 plotlyGraph <-
-function(x){
+function(x, label, color){
 	# レイアウトを設定
 	L <- layout_nicely(x)
 	# ノード
 	vs <- V(x)
 	# エッジリストに変換
 	es <- as.data.frame(get.edgelist(x))
-	es <- es[sample(1:nrow(es), 100), ]	# ここは本番では消す
 	# ノード数
 	Nv <- length(vs)
 	# エッジ数
@@ -15,7 +14,7 @@ function(x){
 	Xn <- L[,1]
 	Yn <- L[,2]
 	# plotly
-	network <- plot_ly(type = "scatter", x = Xn, y = Yn, mode = "markers", text = vs$label, hoverinfo = 1:1512)
+	network <- plot_ly(type = "scatter", x = Xn, y = Yn, mode = "markers", text = names(vs), hoverinfo = "text", marker=list(size=20, opacity=0.5, text=label), colors=c("blue", "red"), color=as.factor(color))
 
 	edge_shapes <- list()
 	for(i in 1:Ne) {
@@ -24,7 +23,7 @@ function(x){
 
 	  edge_shape = list(
 	    type = "line",
-	    line = list(color = "#030303", width = 0.3),
+	    line = list(color = rgb(0,0,0.1), width = 0.001),
 	    x0 = Xn[v0],
 	    y0 = Yn[v0],
 	    x1 = Xn[v1],

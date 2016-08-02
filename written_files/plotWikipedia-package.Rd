@@ -32,6 +32,7 @@ https://en.wikipedia.org/wiki/Pokémon_Go
 \seealso{
 \code{\link{HyperLink}},
 \code{\link{Word2Vec}},
+\code{\link{label.Pokemon}},
 \code{\link{plotlyGraph}},
 \code{\link{plotlyScatter}}
 }

@@ -28,22 +28,28 @@ library("plotWikipedia")
 # 自作データ読み込み
 data("HyperLink")
 data("Word2Vec")
+data("label.Pokemon")
 ```
 
 
 igraphパッケージの自作した、graph.Wiki関数を使って、HyperLinkの可視化を行います。
 ```{r}
-library("igraph")
 # グラフを可視化
 res.igraph <- graph_from_adjacency_matrix(HyperLink, mode="directed", weighted=TRUE)
+```
+
+以降で使うラベル情報を先に整理しておきます。
+```{r}
+label.Pokemon <- rep("Other", length=length(V(res.igraph)))
+names(label.Pokemon) <- rownames(HyperLink)
+label.Pokemon[grep("Pokémon", names(label.Pokemon))] <- "Pokemon"
 ```
 
 自作した、plotlyGraph関数で可視化を行います。
 ```{r, fig.height=8, fig.width=8}
 set.seed(123)
-plotlyGraph(res.igraph)
+plotlyGraph(res.igraph, label=rownames(HyperLink), color=label.Pokemon)
 ```
-
 
 RsneパッケージのRtsne関数を使って、Word2Vecを次元圧縮します。
 ```{r}
@@ -56,7 +62,7 @@ res.tsne <- Rtsne(Word2Vec, dims=2)
 
 自作した、plotlyScatter関数で可視化を行います。
 ```{r, fig.height=8, fig.width=8}
-plotlyScatter(res.tsne)
+plotlyScatter(res.tsne, label=rownames(Word2Vec), color=label.Pokemon)
 ```
 
 
