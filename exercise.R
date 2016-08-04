@@ -190,11 +190,7 @@ lapply(list(A=1:3, B=matrix(1:12, nrow=3)), print)
 
 y <- "WACODE"
 sapply(1:5, function(x, y){
-		if(x  ){
-
-		}else{
-
-		}
+		cat(paste0(y, x, "\n"))
 	}, y=y)
 
 
