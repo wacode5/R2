@@ -182,6 +182,22 @@ jijou(3)
 try(jijou("3"))
 
 
+######## apply関数ファミリー ###########
+apply(matrix(1:12, nrow=3), 1, mean)
+apply(matrix(1:12, nrow=3), 2, var)
+sapply(-3:3, abs)
+lapply(list(A=1:3, B=matrix(1:12, nrow=3)), print)
+
+y <- "WACODE"
+sapply(1:5, function(x, y){
+		if(x  ){
+
+		}else{
+
+		}
+	}, y=y)
+
+
 ############# ディレクトリ操作 ###########
 (d <- getwd()) # ()内の実行と、結果の出力を同時に行う
 setwd("../") # 一つ上のディレクトリに移動
