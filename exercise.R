@@ -482,18 +482,18 @@ try(taro$bool_program()) # プライベートな関数はアクセスできな�
 # 1.2ダウンロード、インストール、ロード
 # CRANパッケージの場合
 # 会場ではダウンロードしない
-# install.packages("rgl", repos="https://cran.ism.ac.jp")
+# install.packages("rgl", repos="https://cran.ism.ac.jp", dependencies=TRUE)
 library("rgl")
 
 # # Bioconductorパッケージの場合
 # 会場ではダウンロードしない
 # source("https://bioconductor.org/biocLite.R")
-# biocLite("meshr")
+# biocLite("meshr", suppressUpdates=TRUE)
 library("meshr")
 
 # # GitHubパッケージ（野良パッケージ）の場合
 # 会場ではダウンロードしない
-# install.packages("devtools", repos="https://cran.ism.ac.jp")
+# install.packages("devtools", repos="https://cran.ism.ac.jp", dependencies=TRUE)
 # library("devtools")
 # install_github("rikenbit/CCIPCA")
 library("CCIPCA")
@@ -511,11 +511,11 @@ ls("package:rgl") # rglパッケージ内で定義されたオブジェクト
 ###### Step.1 : オブジェクトを用意 ########
 ########################################
 # 会場ではダウンロードしない
-# install.packages("Rtsne", repos="https://cran.ism.ac.jp")
-# install.packages("igraph", repos="https://cran.ism.ac.jp")
-# install.packages("plotly", repos="https://cran.ism.ac.jp")
-# install.packages("knitr", repos="https://cran.ism.ac.jp")
-# install.packages("testthat", repos="https://cran.ism.ac.jp")
+# install.packages("Rtsne", repos="https://cran.ism.ac.jp", dependencies=TRUE)
+# install.packages("igraph", repos="https://cran.ism.ac.jp", dependencies=TRUE)
+# install.packages("plotly", repos="https://cran.ism.ac.jp", dependencies=TRUE)
+# install.packages("knitr", repos="https://cran.ism.ac.jp", dependencies=TRUE)
+# install.packages("testthat", repos="https://cran.ism.ac.jp", dependencies=TRUE)
 library("Rtsne")
 library("igraph")
 library("plotly")
