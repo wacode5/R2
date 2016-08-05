@@ -5,7 +5,7 @@ tutorial for R level 2
 
 # 講義資料
 
-<iframe src="//www.slideshare.net/slideshow/embed_code/key/qrehaERoIl7r0w" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/antiplastics/r-64720240" title="Rによる統計解析と可視化" target="_blank">Rによる統計解析と可視化</a> </strong> from <strong><a target="_blank" href="//www.slideshare.net/antiplastics">弘毅 露崎</a></strong> </div>
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/qrehaERoIl7r0w" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/antiplastics/r-64720240" title="Rによる統計解析と可視化" target="_blank">Rによる統計解析と可視化</a> </strong> from <strong><a target="_blank" href="//www.slideshare.net/antiplastics">露崎弘毅</a></strong> </div>
 
 # ファイルの説明
 - **plotWikipedia** : 講義中で完成するRパッケージ
