@@ -5,7 +5,7 @@ tutorial for R level 2
 
 # 講義資料
 
-**ここにslideshareのURLを書く**
+http://www.slideshare.net/antiplastics/r-64720240
 
 # ファイルの説明
 - **plotWikipedia** : 講義中で完成するRパッケージ
