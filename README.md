@@ -1,5 +1,6 @@
 # R2
 tutorial for R level 2
+[![Build Status](https://travis-ci.org/wacode5/R2.svg?branch=master)](https://travis-ci.org/wacode5/R2)
 
 # 講義資料
 
