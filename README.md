@@ -1,5 +1,5 @@
 # R2
-tutorial for R level 2
+このレポジトリは、2016年8月6日に行われた、[「WACODE夏期講習 : Python, R, Juliaによるパッケージ開発を1日で学ぶ」](https://atnd.org/events/79769)で利用された講義資料です。
 
 [![Build Status](https://travis-ci.org/wacode5/R2.svg?branch=master)](https://travis-ci.org/wacode5/R2)
 
