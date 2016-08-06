@@ -3,7 +3,6 @@ plotWikipedia_0.99.0.tar.gz
 *.Rcheck
 iris.csv
 iris.txt
-*RData
 
 #################
 ## Eclipse
